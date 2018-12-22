@@ -98,7 +98,9 @@ class StringReader(Reader):
         return line
             
         
-    def read(self, **kw):
+    def read(self, *args, **kw):
+        if len(args) > 0:
+            return self._read_chars(args[0])
         if kw.get('chars'):
             if kw.get('peek'):
                 return self._peek_chars(kw.get('chars'))

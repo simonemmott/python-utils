@@ -25,6 +25,18 @@ class TestStringReader(unittest.TestCase):
         assert sr._read_chars(8) == 'BCDEF'
         assert sr._read_chars(0) == None
         assert sr._read_chars(1) == None
+        
+    def test_read(self):
+        sr = StringReader('0123456789ABCDEF')
+        
+        assert sr.read(3) == '012'
+        assert sr.read(3) == '345'
+        assert sr.read(0) == ''
+        assert sr.read(5) == '6789A'
+        assert sr.read(8) == 'BCDEF'
+        assert sr.read(0) == None
+        assert sr.read(1) == None
+        
     
     def test_read_chars_starting_at(self):
         sr = StringReader('0123456789ABCDEF', start_at=4)

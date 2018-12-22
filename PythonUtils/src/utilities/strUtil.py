@@ -38,7 +38,7 @@ _SALT = string.digits + string.ascii_letters
 def random(size, **kw):
     rnd = ''
     salt = kw.get('salt', _SALT)
-    for _ in itertools(None, size):
+    for _ in range(size):
         rnd += choice(salt)
 
     return rnd      
