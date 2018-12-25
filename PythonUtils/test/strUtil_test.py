@@ -3,7 +3,7 @@ Created on 16 Dec 2018
 
 @author: simon
 '''
-import unittest
+import unittest, os
 from utilities import strUtil
 
 
@@ -38,6 +38,18 @@ class TestStrUtil(unittest.TestCase):
     def test_ends_with_token(self):
         assert not strUtil.ends_with_token('aabbccdd', 'aa', 'bb', 'cc')
         assert strUtil.ends_with_token('aabbccdd', 'aa', 'bb', 'cc', 'dd')
+        
+class TestStrTokens(unittest.TestCase):
+    
+    def test_list_tokens(self):
+        lst = strUtil.list_env_tokens('AAA${XXX}BBB${YYY}DDDD')
+        self.assertEqual(['${YYY}', '${XXX}'], lst)
+        
+    def test_env_replace(self):
+        xxx = os.getenv('XXX', '')
+        yyy = os.getenv('YYY', '')
+        
+        self.assertEqual('AAA%sBBB%sDDDD'%(xxx,yyy), strUtil.env_replace('AAA${XXX}BBB${YYY}DDDD'))
         
 
 

@@ -1,4 +1,5 @@
 import os
+from utilities import Indentable
 
 class Writer(object):
     def __init__(self):
@@ -27,5 +28,20 @@ class StringWriter(Writer):
             
     def __str__(self):
         return self._buff
+    
+class IndentableWriter(Indentable):
+    def __init__(self, writer, **kw):
+        Indentable.__init__(self, **kw)
+        self._writer = writer
+        self._last_char = ''
+        
+    def write(self, *args, **kw):
+        for arg in args:
+            if self._last_char == '\n':
+                self._writer.write(self.get_indent())
+            if len(arg) > 1:
+                self._writer.write(arg[:-1].replace('\n', '\n'+self.get_indent()))
+            self._last_char = arg[-1]
+            self._writer.write(self._last_char)
             
     

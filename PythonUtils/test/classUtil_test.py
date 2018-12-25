@@ -105,6 +105,23 @@ class TestClassUtil(unittest.TestCase):
         assert c.foo() == 'Hello Fred'
         assert c.bar('fish') == 'Fred says: fish'
  
+    def test_add_named_method(self):
+        b = ClassB(name='Fred', description='caveman', title='Dr')
+        c = ClassC(name='Fred', description='caveman')
+        
+        @classUtil.add_named_method('fufoo', ClassB, ClassC)
+        def foo(self):
+            return 'Hello %s' % (('%s %s' % (self._title, self._name)) if hasattr(self, '_title') and hasattr(self, '_name') else self._name if hasattr(self, '_name') else 'world')
+
+        @classUtil.add_named_method('fubar', ClassB, ClassC)
+        def bar(self, msg):
+            return self._name+' says: '+msg
+            
+        assert b.fufoo() == 'Hello Dr Fred'
+        assert b.fubar('humbug') == 'Fred says: humbug'
+        assert c.fufoo() == 'Hello Fred'
+        assert c.fubar('fish') == 'Fred says: fish'
+ 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testAliasCase']
     unittest.main()

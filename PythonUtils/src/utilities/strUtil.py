@@ -3,7 +3,7 @@ Created on 16 Dec 2018
 
 @author: simon
 '''
-import re, string, itertools
+import re, string, itertools, os
 from random import choice
 
 def aliasCase(s):
@@ -48,3 +48,25 @@ def ends_with_token(s, *tokens):
         if len(s) >= len(token) and s[-len(token):] == token:
             return True
     return False
+
+RE_ENV_TOKEN = re.compile(".*(\$\{.+\}).*")
+
+def list_env_tokens(s):
+    _s = s
+    lst = []
+    m = RE_ENV_TOKEN.match(_s)
+    while(m):
+        var = m.group(1)
+        lst.append(var)
+        _s = _s.replace(var, '')
+        m = RE_ENV_TOKEN.match(_s)
+    return lst
+    
+def env_replace(s):
+    for token in list_env_tokens(s):
+        env_key=token[2:-1]
+        val = os.getenv(env_key, '')
+        s = s.replace(token, val)
+    return s
+        
+        

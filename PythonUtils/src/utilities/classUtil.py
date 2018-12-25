@@ -55,3 +55,10 @@ def add_method(*classes):
             setattr(cls, func.__name__, func)
         return func 
     return decorator
+
+def add_named_method(name, *classes):
+    def decorator(func):
+        for cls in classes:
+            setattr(cls, name, func)
+        return func 
+    return decorator
