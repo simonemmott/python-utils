@@ -48,7 +48,7 @@ class TestClassUtil(unittest.TestCase):
         assert '_name' in classUtil.get_attributes(ClassB)
         assert '_description' in classUtil.get_attributes(ClassB)
         assert '_title' in classUtil.get_attributes(ClassB)
-        
+                
     def test_to_dict(self):
         
         a = ClassA(name='Fred', description='caveman')
