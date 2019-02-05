@@ -1,5 +1,5 @@
 import os
-from utilities import Indentable
+from k2_util import Indentable
 
 class Writer(object):
     def __init__(self):

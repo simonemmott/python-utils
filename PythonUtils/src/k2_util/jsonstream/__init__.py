@@ -1,6 +1,6 @@
 import os, json, re
 from enum import Enum
-from utilities import numUtil
+from k2_util import numUtil
 
 RE_IS_FLOAT = re.compile('[+-]?(\d+(\.\d*)?|\.\d+)([eE][+-]?\d+)?')
 

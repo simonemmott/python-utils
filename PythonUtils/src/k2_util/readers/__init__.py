@@ -1,5 +1,5 @@
 import os
-from utilities import strUtil
+from k2_util import strUtil
 
 class Reader(object):
     def __init__(self):
